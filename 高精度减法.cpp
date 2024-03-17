@@ -7,7 +7,7 @@ bool cmp(vector<int> &a,vector<int> &b)//只有在a.size()>b.size()时才返回t
     {
         return a.size()>b.size();
     }
-    for(int i=a.size()-1;i>=0;i++)
+    for(int i=a.size()-1;i>=0;i--)
     {
         if(a[i]!=b[i])
         {

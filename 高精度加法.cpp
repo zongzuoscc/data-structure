@@ -2,10 +2,8 @@
 #include <vector>
 #include <string>
 using namespace std;
-const int N=1e6+10;
 vector<int> add (vector<int> &a,vector<int> &b)
 {
-    // if (a.size() < b.size()) return add(b, a); 
     vector<int> c;
     int t=0;
     for(int i=0;i<a.size()||i<b.size();i++)
