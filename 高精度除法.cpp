@@ -14,6 +14,7 @@ vector<int> div(vector<int> &a,int b,int &r)
         r%=b;
     }
     reverse(c.begin(),c.end());
+    //由于输出时是倒序输出，而vector c中是正序存储，所以先用reverse函数将其反转，再去除前导0，最后返回
     while(c.size()>1&&c.back()==0)
     {
         c.pop_back();
@@ -30,7 +31,7 @@ int main()
     {
         a.push_back(A[i]-'0');
     }
-    int r;
+    int r;//余数
     c=div(a,b,r);
     for(int i=c.size()-1;i>=0;i--)
     {
