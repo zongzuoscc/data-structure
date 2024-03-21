@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 10010;
+const int N = 100010;//将N的值从10010改为100010，有N太小导致segmentation fault
 int n,m;
 int a[N],b[N];//a是b的前缀和,b是a的差分。差分是前缀和的逆运算
 //差分是用于计算原数组的，b是原数组，a是b数组的和。

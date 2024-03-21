@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 10010;
+const int N = 1010;
 int n,m,q;
 int a[N][N],s[N][N];
 int main()
@@ -24,7 +24,7 @@ int main()
     {
         int x1,y1,x2,y2;
         cin>>x1>>y1>>x2>>y2;
-        cout<<s[x2][y2]-s[x1-1][y2]-s[x2][y1-1]+s[x1-1][y1-1];//求子矩阵的和
+        cout<<s[x2][y2]-s[x1-1][y2]-s[x2][y1-1]+s[x1-1][y1-1]<<endl;//求子矩阵的和,这里添加了endl，否则输出形式是错误的，具体是否需要换行看具体题目要求
     }
     return 0;
 }

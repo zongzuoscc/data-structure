@@ -18,7 +18,7 @@ int main()
     {
         int l,r;
         cin>>l>>r;
-        cout<<s[r]-s[l-1];//一个公式，用于求数组a从l加到r的和，区间和的计算
+        cout<<s[r]-s[l-1]<<endl;//一个公式，用于求数组a从l加到r的和，区间和的计算
     }
     return 0;
 }
