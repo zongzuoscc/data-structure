@@ -112,4 +112,9 @@ void mergesort(int q[],int l,int r)
         q[i]=tmp[j];
     }
 }
+
+void mergesort(int q[],int l,int r)
+{
+    if(l>=r) return;
+}
 */
