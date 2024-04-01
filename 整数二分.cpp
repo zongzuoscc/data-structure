@@ -55,3 +55,39 @@ int main()
     }
     return 0;
 }
+
+/*
+整数二分模板
+void divide(int q[],int l,int r,int x)
+{
+    while(l<r)
+    {
+        int mid=(l+r)/2;
+        if(q[mid]>x)
+        {
+            r=mid;
+        }
+        else
+        {
+            l=mid;
+        }
+    }
+}
+
+另一个模板
+void divide(int q[],int l,int r,int x)
+{
+    while(l<r)
+    {
+        int mid=(l+r+1)/2;
+        if(q[mid]<x)
+        {
+            l=mid;
+        }
+        else
+        {
+            r=mid;
+        }
+    }
+}
+*/
