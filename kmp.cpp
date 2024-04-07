@@ -21,7 +21,7 @@ using namespace std;
 const int N=100010;
 const int M=1000010;
 int n,m;
-char p[N];//短的串，去和长的串比
+char p[N];//短的串，去和长的串比，也是要求ne数组的串
 char s[M];//长的串
 int ne[N];
 int main()
@@ -29,17 +29,18 @@ int main()
     cin>>n>>p+1>>m>>s+1;//下标从1开始所以读到p+1，s+1
 
     //求ne的过程，和匹配的过程类似  相当于是预处理，先求出ne[j]
+    //其实和kmp匹配过程是类似的
     for(int i=2,j=0;i<=n;i++)
     {
-        while(j&&p[i]!=p[j+1])
+        while(j&&p[i]!=p[j+1]) //如果说还么退到开始，并且，下一位仍然不匹配，那么
         {
             j=ne[j];
         }
-        if(p[i]==p[j+1])
+        if(p[i]==p[j+1])//如果说匹配成功，那么j就前进一步 
         {
             j++;
         }
-        ne[i]=j;
+        ne[i]=j;//这里为什么要让ne[i]=j呢
     }
 
     //kmp匹配过程
