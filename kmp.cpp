@@ -42,6 +42,11 @@ int main()
         }
         ne[i]=j;//这里为什么要让ne[i]=j呢
     }
+    for(int i=0;i<n;i++)
+    {
+        cout<<ne[i]<<" ";//输出ne方便理解
+    }
+    cout<<endl;
 
     //kmp匹配过程
     for(int i=1,j=0;i<=m;i++)
@@ -57,7 +62,7 @@ int main()
         }
         if(j==n)
         {
-            //匹配成功
+            //匹配成功,输出从第几个字符开始匹配成功的
             cout<<i-n+1<<" ";//这里+1与否看具体题目要求
             j=ne[j];
         }
