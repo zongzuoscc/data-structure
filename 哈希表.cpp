@@ -17,7 +17,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-const int N=10003;
+const int N=100003;//少了一个0导致tle了
 int h[N];//这里按理来说表示的是哈希之后的值 也就是对应的槽
 int e[N],ne[N];//拉链法的链其实就是之前讲的链表
 int idx;//表示当前用到了哪个位置
