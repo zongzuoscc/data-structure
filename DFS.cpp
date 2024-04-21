@@ -16,11 +16,11 @@
 using namespace std;
 const int N=10;
 int n;
-bool st[N];
+bool st[N];//bool数组为真则表明该点已经用过了
 int path[N];//用于记录方案 
 void dfs(int u)
 {
-    if(u==n)
+    if(u==n)//说明已经把所有位置都填满了
     {
         for(int i=0;i<n;i++)
         {
