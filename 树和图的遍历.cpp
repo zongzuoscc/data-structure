@@ -16,6 +16,8 @@
 //所有点都枚举一遍
 
 
+//时间复杂度是O(n+m)和点数，边数成线性关系
+
 //这就是树和图深度优先搜索的代码
 #include <iostream>
 #include <cstring>
@@ -27,19 +29,35 @@ int h[N];//存储的是n个链表的链表头
 int e[M];//存储的是每一个节点的值是多少
 int ne[M];//存储的是每一个节点的next指针是多少
 int idx;
-bool st[N];//开一个bool数组看哪些点被遍历过了
-void dfs(int u)
+bool st[N];//开一个bool数组看哪些点被遍历过了，遍历过就不要再遍历了
+int n;
+int ans=N;//记录一个全局的答案  存储的就是最小的最大值
+
+//返回的是以u为根的子树的大小（也就是子树中 点的数量)
+int dfs(int u)//u表示当前已经dfs到的点
 {
     st[u]=true; //标记 已经被搜过了
-    for(int i=h[u];i!=-1;i=ne[i])
+    //对于每一个点，首先先记录当前这个点子树的大小
+    int sum=1;
+    int res=0; //记录把这个点删掉之后每一个连通块的大小的最大值
+    for(int i=h[u];i!=-1;i=ne[i])  //遍历以下u的所有出边  就是出去的边  
     {
+        //弹幕里说e存储的是与u相连的所有点的编号
         int j=e[i];//存储  当前链表里面的这个节点对应图里面 点的编号是多少
-        if(!st[j])//如果说j没有被搜过
+        if(!st[j])//如果说j没有被搜过,那么就继续搜
         {
-            dfs(j);//那么就继续搜
+            int s=dfs(j);//  用s来表示当前子树的大小
+            //当前子树也算是一个连通块
+            res=max(res,s);
+            //以当前这个节点为根节点的子树是以u为根节点的树的一部分 所以需要将sum+s
+            sum+=s;
             //弹幕里面说 由于每个点只会搜索一次所以不需要恢复现场
         }
     }
+    res=max(res,n-sum);
+    //最后res存储的就是把这个点删除之后最大的连通块的点数了  和之前的全局答案取最小值即可
+    ans=min(ans,res);
+    return sum;
 }
 void add(int a,int b)
 {
@@ -49,6 +67,21 @@ void add(int a,int b)
 }
 int main()
 {
-    memset(h,-1,sizeof h);//链表初始化
+    cin>>n;
 
+    memset(h,-1,sizeof h);//链表初始化
+    for(int i=0;i<n-1;i++)
+    {
+        int a,b;
+        cin>>a>>b;
+        add(a,b);
+        add(b,a);
+        //由于是无向边，所以add两次
+    }
+    dfs(1);//随便挑一个点开始搜索
+    cout<<ans<<endl;
+    return 0;   
 }
+
+//这段代码搜索的是图当中的节点编号  不是边  idx存储的是边
+//从图当中的编号进行搜索
