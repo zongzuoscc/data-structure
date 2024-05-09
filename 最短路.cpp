@@ -19,6 +19,8 @@
 //只有一种做法 Floyd算法  时间复杂度为O(n^3)
 //Floyd基于动态规划
 
+//在以上算法中 并没有涉及到这个图是有向边还是无向边  因为不影响
+
 //最短路算法 考察的侧重点是 建图同时也是难点 如何把问题抽象成最短路的问题
 
 //朴素版dijkstra    集合s 存储当前已经确立最短路的点
@@ -32,12 +34,75 @@
 
     //由于是一个稠密图  那么我们就使用稠密图来存储 
     //
+
+//由于权值都是正的，所有自环不会出现在最短路里   重边只需要保留长度最短的边即可
 #include <iostream>
 #include <cstring>
 #include <algorithm>
 using namespace std;
-const int N=100010;
+const int N=510;
+int n,m;
+int g[N][N];
+int dist[N];//dijkstra算法里面的距离 表示的是从一号点走到每个点的距离是多少  当前的最短距离是多少
+bool st[N];//表示每个点的最短路是不是已经确定了
+int dijkstra()
+{
+    memset(dist,0x3f,sizeof dist);//初始化距离为正无穷
+    dist[1]=0;//将一号点初始化为0；
+    for(int i=0;i<n;i++)//迭代n次
+    {
+        //每次第一步先找最小值
+        //找到当前没有确定最短路长度的点当中 距离最小的那一个
+        int t=-1;//表示还没有确定
+        for(int j=1;j<=n;j++)
+        {
+            if(!st[j]&&(t==-1||dist[t]>dist[j]))//如果说当前这个点还没有确定最短路并且t=-1或当前这个t不是最短的的话 
+            {
+                t=j;//那么就把t赋值成j
+            }
+        }
+        st[t]=true;//把t加到集合里面去
+
+        //拿t来更新其他点的距离
+        for(int j=1;j<=n;j++)
+        {
+            dist[j]=min(dist[j],dist[t]+g[t][j]);//从用1到t的距离+t到j的距离 来更新从1到j这条边
+        }
+    }
+    if(dist[n]==0x3f3f3f)//如果从1到n是正无穷 说明是不连通的
+    {
+        return -1;
+    }
+    else
+    {
+        return dist[n];
+    }
+}
 int main()
 {
-    
+    cin>>n>>m;//读入点数和边数
+    // for(int i=1;i<=n;i++)
+    // {
+    //     for(int j=1;i<=n;j++)
+    //     {
+    //         if(i==j)
+    //         {
+    //             g[i][j]=0;
+    //         }
+    //         else
+    //         {
+    //             g[i][j]=INF;//负无穷
+    //         }
+    //     }
+    // }
+    memset(g,0x3f,sizeof g);//和上面一长串代码原理相同
+    while(m--)
+    {
+        int a,b,c;
+        cin>>a>>b>>c;
+        g[a][b]=min(g[a][b],c);//因为可能有多条边 所有这一步是保留长度最短的边
+    }
+    int t=dijkstra();
+    cout<<t<<endl;
+    return 0;
 }
