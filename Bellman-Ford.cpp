@@ -41,14 +41,14 @@ struct Edge//定义一个结构体来存储所有边
 
 int bellman_ford()
 {
+    memset(dist,0x3f,sizeof dist);
+    dist[1]=0;
     //由于题目要求不超过k条边 所以迭代k次
     for(int i=0;i<k;i++)
     {
-        memset(dist,0x3f,sizeof dist);
-        dist[1]=0;
         //弹幕说 每次遍历的是边
         //这个题需要做一个特殊的处理，每次在进行一次新的迭代之前，需要先把dist数组备份一下
-        memccpy(backup,dist,sizeof dist);
+        memcpy(backup,dist,sizeof dist);
         //在做bellman-Ford算法的时候 如果不加备份会有问题 更新过程枚举所有边的时候 可能会发生串联
         //就不能满足k条边的限制  就需要备份  备份之后 backup里存储的就是上一次迭代的结果
         //只用上一次迭代的结果就不会发生串联
@@ -62,7 +62,7 @@ int bellman_ford()
     }
     if(dist[n]>0x3f3f3f3f/2)
     {
-        return -1;//说明路径不存在
+        return 0x3f3f3f3f;//说明路径不存在
     }
     return dist[n];
 }
@@ -76,7 +76,7 @@ int main()
         edges[i]={a,b,w};
     }
     int t=bellman_ford();
-    if (t==-1)//说明最短路长度不存在
+    if (t==0x3f3f3f3f)//说明最短路长度不存在
     {
         cout<<"impossible"<<endl;
     }
