@@ -1,50 +1,50 @@
-
+//ÔÚÊµ¼ÊÓ¦ÓÃÖÐ Ò»°ãÓÃÏßÐÔÉ¸·¨À´É¸Ñ¡ÖÊÊý£¬ÒòÎª¸ü¿ì µ«ÊÇ°£ÊÏÉ¸·¨µÄË¼ÏëºÜÖØÒª  ¿ÉÒÔÓÃÕâÖÖË¼ÏëÀ´½â¾öÆäËûÎÊÌâ
 #include <iostream>
 #include <algorithm>
 using namespace std;
 const int N=1000010;
-int primes[N],cnt;//primes[]ç”¨äºŽå­˜å‚¨ç­›é€‰å‡ºæ¥çš„è´¨æ•° cntç”¨äºŽå­˜å‚¨è´¨æ•°çš„ä¸ªæ•°ï¼ŒåŒæ—¶ä½œä¸ºä¸‹æ ‡
-bool st[N];//è¡¨ç¤ºæ•°çš„çŠ¶æ€
+int primes[N],cnt;//primes[]ÓÃÓÚ´æ´¢É¸Ñ¡³öÀ´µÄÖÊÊý cntÓÃÓÚ´æ´¢ÖÊÊýµÄ¸öÊý£¬Í¬Ê±×÷ÎªÏÂ±ê
+bool st[N];//±íÊ¾ÊýµÄ×´Ì¬
 
-//è°ƒå’Œçº§æ•°  ln n + c   0.577
-//æ—¶é—´å¤æ‚åº¦ ä¸ºnlogn  è¿™æ˜¯æœ´ç´ ç­›æ³•çš„æ—¶é—´å¤æ‚åº¦
-//1åˆ°nä¸­æœ‰  n/ln n ä¸ªè´¨æ•°  è´¨æ•°å®šç†  
-//ç»è¿‡ä¼˜åŒ–ä¹‹åŽçš„æ—¶é—´å¤æ‚åº¦æ˜¯ o(n log log n) åŸºæœ¬ä¸Šå’Œo(n)ä¸€ä¸ªçº§åˆ«
-//åŸƒæ‹‰æ‰˜æ–¯ç‰¹å°¼ç­›æ³• ç®€ç§°åŸƒæ°ç­›æ³•  è¿˜æœ‰ä¸€ä¸ªçº¿æ€§ç­›æ³•
+//µ÷ºÍ¼¶Êý  ln n + c   0.577
+//Ê±¼ä¸´ÔÓ¶È Îªnlogn  ÕâÊÇÆÓËØÉ¸·¨µÄÊ±¼ä¸´ÔÓ¶È
+//1µ½nÖÐÓÐ  n/ln n ¸öÖÊÊý  ÖÊÊý¶¨Àí  
+//¾­¹ýÓÅ»¯Ö®ºóµÄÊ±¼ä¸´ÔÓ¶ÈÊÇ o(n log log n) »ù±¾ÉÏºÍo(n)Ò»¸ö¼¶±ð
+//°£À­ÍÐË¹ÌØÄáÉ¸·¨ ¼ò³Æ°£ÊÏÉ¸·¨  »¹ÓÐÒ»¸öÏßÐÔÉ¸·¨
 void get_primes1(int n)
 {
     for(int i=2;i<=n;i++)
     {
-        if(!st[i])//å¦‚æžœè¯´å½“å‰è¿™ä¸ªæ•°æ²¡æœ‰è¢«ç­›è¿‡ è¯´æ˜Žä»–æ˜¯ä¸€ä¸ªè´¨æ•°
+        if(!st[i])//Èç¹ûËµµ±Ç°Õâ¸öÊýÃ»ÓÐ±»É¸¹ý ËµÃ÷ËûÊÇÒ»¸öÖÊÊý
         {
-            primes[cnt++]=i;//å°†è¿™ä¸ªæ•°æ ‡è®°ä¸ºè´¨æ•°
+            primes[cnt++]=i;//½«Õâ¸öÊý±ê¼ÇÎªÖÊÊý
             for(int j=i+i;j<=n;j+=i)
             {
-                st[j]=true;//å…¶å®žè¿™é‡Œå¹¶ä¸éœ€è¦æŠŠæ‰€æœ‰æ•°çš„å€æ•°éƒ½åˆ æŽ‰ åªéœ€è¦åˆ æŽ‰æ‰€æœ‰è´¨æ•°çš„å€æ•°å°±å¥½äº† æŠŠå¾ªçŽ¯æ”¾åˆ°åˆ¤æ–­é‡Œé¢æ¥
+                st[j]=true;//ÆäÊµÕâÀï²¢²»ÐèÒª°ÑËùÓÐÊýµÄ±¶Êý¶¼É¾µô Ö»ÐèÒªÉ¾µôËùÓÐÖÊÊýµÄ±¶Êý¾ÍºÃÁË °ÑÑ­»··Åµ½ÅÐ¶ÏÀïÃæÀ´
             }
         }
     }  
 }
 
-//å½“æ•°æ®èŒƒå›´ å¤§äºŽ10000000æ—¶  çº¿æ€§ç­›æ³•æ•ˆçŽ‡æ›´é«˜
-//çº¿æ€§ç­›æ³• nåªä¼šè¢«ä»–çš„æœ€å°è´¨å› å­ç­›æŽ‰ï¼ˆçº¿æ€§ç­›æ³•çš„æ ¸å¿ƒï¼‰
-//jæ˜¯ä»Žå°åˆ°å¤§æžšä¸¾çš„æ‰€æœ‰è´¨æ•°  æ¯ä¸€æ¬¡æŠŠå½“å‰çš„è´¨æ•°å’Œiçš„ä¹˜ç§¯ç­›æŽ‰ 
-//å½“i%primes[j]==0  é‚£ä¹ˆ    primes[j]ä¸€å®šæ˜¯i çš„æœ€å°è´¨å› å­  å› ä¸ºprimes[j]æ˜¯ä»Žå°åˆ°å¤§æžšä¸¾çš„æ‰€æœ‰è´¨å› å­  
-//ç¬¬ä¸€æ¬¡å‡ºçŽ°i%primes[j]==0çš„æ—¶å€™ primes[j]ä¸€å®šæ˜¯içš„æœ€å°è´¨å› å­
+//µ±Êý¾Ý·¶Î§ ´óÓÚ10000000Ê±  ÏßÐÔÉ¸·¨Ð§ÂÊ¸ü¸ß
+//ÏßÐÔÉ¸·¨ nÖ»»á±»ËûµÄ×îÐ¡ÖÊÒò×ÓÉ¸µô£¨ÏßÐÔÉ¸·¨µÄºËÐÄ£©
+//jÊÇ´ÓÐ¡µ½´óÃ¶¾ÙµÄËùÓÐÖÊÊý  Ã¿Ò»´Î°Ñµ±Ç°µÄÖÊÊýºÍiµÄ³Ë»ýÉ¸µô 
+//µ±i%primes[j]==0  ÄÇÃ´    primes[j]Ò»¶¨ÊÇi µÄ×îÐ¡ÖÊÒò×Ó  ÒòÎªprimes[j]ÊÇ´ÓÐ¡µ½´óÃ¶¾ÙµÄËùÓÐÖÊÒò×Ó  
+//µÚÒ»´Î³öÏÖi%primes[j]==0µÄÊ±ºò primes[j]Ò»¶¨ÊÇiµÄ×îÐ¡ÖÊÒò×Ó
 
-//åˆ†ä¸¤ç§æƒ…å†µï¼Œ1i%primes[j]==0  primes[j]ä¸€å®šæ˜¯içš„æœ€å°è´¨å› å­  primes[j]ä¹Ÿä¸€å®šæ˜¯ i*primes[j]çš„æœ€å°è´¨å› å­
-//2 i&primes[j]!=0   ç”±äºŽæ˜¯ä»Žå°åˆ°å¤§æžšä¸¾çš„æ‰€æœ‰è´¨æ•° å¹¶ä¸”æˆ‘ä»¬æ²¡æœ‰æžšä¸¾åˆ°içš„ä»»ä½•ä¸€ä¸ªè´¨å› å­ æ‰€ä»¥è¯´æ˜Ž
-//primes[j]ä¸€å®šå°äºŽiçš„æ‰€æœ‰è´¨å› å­  æ‰€æœ‰primes[j]ä¹Ÿä¸€å®šæ˜¯primes[j]*i çš„æœ€å°è´¨å› å­
-//æ­¤å¤– ä»»ä½•ä¸€ä¸ªåˆæ•°ä¸€å®šä¼šè¢«ç­›æŽ‰  å¯¹äºŽä¸€ä¸ªåˆæ•°x  ä¸€å®šå­˜åœ¨ä¸€ä¸ªæœ€å°è´¨å› å­ å‡è®¾ primes[j]æ˜¯xçš„æœ€å°è´¨å› å­
-//å½“iæžšä¸¾åˆ°x/primes[j]çš„æ—¶å€™  ç”±äºŽ iæ˜¯ä¸ªåˆæ•°  æ‰€ä»¥æœ€å°è´¨å› å­primes[j]ä¸€å®šæ˜¯å­˜åœ¨çš„  iåœ¨æžšä¸¾åˆ°xä¹‹å‰
-//ä¸€å®šä¼šæžšä¸¾åˆ° x/primes[j]
-
+//·ÖÁ½ÖÖÇé¿ö£¬1i%primes[j]==0  primes[j]Ò»¶¨ÊÇiµÄ×îÐ¡ÖÊÒò×Ó  primes[j]Ò²Ò»¶¨ÊÇ i*primes[j]µÄ×îÐ¡ÖÊÒò×Ó
+//2 i&primes[j]!=0   ÓÉÓÚÊÇ´ÓÐ¡µ½´óÃ¶¾ÙµÄËùÓÐÖÊÊý ²¢ÇÒÎÒÃÇÃ»ÓÐÃ¶¾Ùµ½iµÄÈÎºÎÒ»¸öÖÊÒò×Ó ËùÒÔËµÃ÷
+//primes[j]Ò»¶¨Ð¡ÓÚiµÄËùÓÐÖÊÒò×Ó  ËùÓÐprimes[j]Ò²Ò»¶¨ÊÇprimes[j]*i µÄ×îÐ¡ÖÊÒò×Ó
+//´ËÍâ ÈÎºÎÒ»¸öºÏÊýÒ»¶¨»á±»É¸µô  ¶ÔÓÚÒ»¸öºÏÊýx  Ò»¶¨´æÔÚÒ»¸ö×îÐ¡ÖÊÒò×Ó ¼ÙÉè primes[j]ÊÇxµÄ×îÐ¡ÖÊÒò×Ó
+//µ±iÃ¶¾Ùµ½x/primes[j]µÄÊ±ºò  ÓÉÓÚ iÊÇ¸öºÏÊý  ËùÒÔ×îÐ¡ÖÊÒò×Óprimes[j]Ò»¶¨ÊÇ´æÔÚµÄ  iÔÚÃ¶¾Ùµ½xÖ®Ç°
+//Ò»¶¨»áÃ¶¾Ùµ½ x/primes[j]
+//ÏßÐÔÉ¸·¨ÔÚµ÷ÊÔ¹ý³ÌÖÐ»á³öÏÖ arithmetic exception  ÐèÒªÀí½âÎªÊ²Ã´ÔÚÔËÐÐµÄÊ±ºò²»»á³ö´í
 void get_primes2(int n)
 {
-    //ä»¥ä¸‹ä¸ºçº¿æ€§ç­›æ³•  
+    //ÒÔÏÂÎªÏßÐÔÉ¸·¨  
     for(int i=2;i<=n;i++)
     {
-        if(!st[i])//å¦‚æžœè¯´å½“å‰è¿™ä¸ªæ•°æ²¡æœ‰è¢«ç­›è¿‡ è¯´æ˜Žä»–æ˜¯ä¸€ä¸ªè´¨æ•°
+        if(!st[i])//Èç¹ûËµµ±Ç°Õâ¸öÊýÃ»ÓÐ±»É¸¹ý ËµÃ÷ËûÊÇÒ»¸öÖÊÊý
         {
             primes[cnt++]=i;
         }
