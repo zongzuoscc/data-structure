@@ -1,16 +1,3 @@
-//约数个数
-//是基于算数基本定理的  一个数N分解完质因数之后  如果等于下式
-//N=p1^a1+p2^a2+……+pk^ak
-//那么 约数个数就是(a1+1)(a2+1)*……(ak+1)
-//因为n的任何一个约数 d=p1^b1+p2^b2+……+pk^bk  任何一个约数都可以写成这样的形式 
-//每一个b都在0到a之间
-//每一项的指数只要不同 那么约数就不同
-//所以说n的约数的个数 就和b1到bk 的取法个数是一样的  n的每一个约数都对应了一个 b1到bk的取法  
-//每两个不同的取法都对应n的两个不同的约数
-//那么b1有0到a1种选法  其他的也都是一样的选法个数  
-//1到n中 约数和倍数的个数是相同的      从1到n  1的倍数是n个  2的倍数是n/2  以此类推  n的倍数为n/n 
-//1到n当中总共的约数个数就是nlogn   int范围内 约数个数最多的数 大概是1600左右
-
 //以下为约数之和
 //因式分解之后的结果依然是N=p1^a1+p2^a2+……+pk^ak
 //(p1^0+p1^1+……+p1^a1)*……*(pk^0+pk^1+……+pk^ak)  直接用乘法分配律展开
@@ -49,7 +36,17 @@ int main()
         if(x>1) primes[x]++;
     }
     long long res=1;
-    for(auto prime:primes) res=res*(prime.second+1)%mod;//枚举所有的
+    for(auto prime:primes) 
+    {
+        int p=prime.first;//p来表示底数
+        int a=prime.second;//a来表示指数  需要先求出来p的0次方加到p的a次方
+        long long t=1;
+        while(a--)
+        {
+            t=(t*p+1)%mod;
+        }
+        res=res*t%mod;
+    }
     cout<<res<<endl;
     return 0;
 }
